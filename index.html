@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#9e197e">
+  <title>Le Voile Stores | لو فوال - أزياء المحجبات</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%239e197e'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Georgia,serif'>V</text></svg>">
+
+  <!-- Fonts: Montserrat (like the real store), Cairo (Arabic), Cormorant Garamond (logo & headings) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= 1. ANNOUNCEMENT BAR ================= -->
+  <div class="announcement">
+    <div class="announcement__marquee" aria-hidden="true">
+      <div class="announcement__track" id="announcement-track"></div>
+    </div>
+    <button class="lang-toggle" data-action="toggle-lang">
+      <i data-icon="globe"></i>
+      <span data-t="otherLanguage"></span>
+    </button>
+  </div>
+
+  <!-- ================= 2. HEADER ================= -->
+  <header class="header" id="header">
+    <div class="container header__bar">
+      <button class="icon-btn header__menu-btn" data-action="open-menu" aria-label="Menu">
+        <i data-icon="menu"></i>
+      </button>
+
+      <a href="#" class="logo" data-action="select-category" data-category="all" aria-label="Le Voile - home">
+        <span class="logo__text">Le Voile</span>
+        <span class="logo__subtitle" data-t="brandSubtitle"></span>
+      </a>
+
+      <!-- Search (desktop) -->
+      <div class="search search--desktop">
+        <i data-icon="search" class="search__icon"></i>
+        <input type="search" id="search-desktop" class="search__input" data-t-placeholder="searchPlaceholder" autocomplete="off">
+        <button class="search__clear hidden" data-action="clear-search" aria-label="Clear search"><i data-icon="x"></i></button>
+        <div class="search__suggestions hidden" id="search-suggestions">
+          <div class="search__suggestions-title" data-t="searchSuggestions"></div>
+          <div class="search__tags" id="search-tags"></div>
+        </div>
+      </div>
+
+      <div class="header__actions">
+        <button class="header__action header__action--account" data-action="login" aria-label="Account">
+          <i data-icon="user"></i>
+          <span class="header__action-label" data-t="account"></span>
+        </button>
+        <button class="header__action" data-action="open-wishlist" aria-label="Wishlist">
+          <i data-icon="heart"></i>
+          <span class="header__action-label" data-t="wishlist"></span>
+          <span class="count-badge hidden" id="wishlist-count">0</span>
+        </button>
+        <button class="header__action" data-action="open-cart" aria-label="Shopping bag">
+          <i data-icon="bag"></i>
+          <span class="header__action-label" data-t="cart"></span>
+          <span class="count-badge hidden" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search (mobile) -->
+    <div class="container search-mobile-wrap">
+      <div class="search search--mobile">
+        <i data-icon="search" class="search__icon"></i>
+        <input type="search" id="search-mobile" class="search__input" data-t-placeholder="searchPlaceholder" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Category navigation (desktop) -->
+    <nav class="category-nav" aria-label="Categories">
+      <div class="container category-nav__inner no-scrollbar" id="category-nav"></div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= 3. HERO ================= -->
+    <section class="hero" id="hero" aria-roledescription="carousel"></section>
+
+    <!-- ================= 4. PERKS ================= -->
+    <section class="perks">
+      <div class="container perks__grid" id="perks"></div>
+    </section>
+
+    <!-- ================= 5. SHOP BY CATEGORY ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2 class="section__title" data-t="shopByCategory"></h2>
+            <p class="section__desc" data-t="shopByCategoryDesc"></p>
+          </div>
+        </div>
+        <div class="category-cards no-scrollbar" id="category-cards"></div>
+      </div>
+    </section>
+
+    <!-- ================= 6. CATALOG ================= -->
+    <section class="section catalog" id="catalog">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <h2 class="section__title" data-t="collectionTitle"></h2>
+            <p class="section__desc" data-t="collectionDesc"></p>
+          </div>
+        </div>
+
+        <!-- Category chips -->
+        <div class="chips no-scrollbar" id="category-chips"></div>
+
+        <!-- Filters + sort -->
+        <div class="toolbar">
+          <div class="toolbar__filters">
+            <button class="toggle-chip" id="toggle-sale" data-action="toggle-sale">
+              <i data-icon="tag"></i><span data-t="saleOnly"></span>
+            </button>
+            <button class="toggle-chip" id="toggle-under200" data-action="toggle-under200">
+              <span data-t="under200"></span>
+            </button>
+            <div class="select-wrap">
+              <select id="material-select" class="select" aria-label="Material"></select>
+              <i data-icon="chevronDown" class="select-wrap__arrow"></i>
+            </div>
+            <button class="link-btn hidden" id="clear-filters" data-action="clear-all" data-t="clearAll"></button>
+          </div>
+          <div class="toolbar__right">
+            <span class="toolbar__count" id="results-count"></span>
+            <div class="select-wrap">
+              <select id="sort-select" class="select" aria-label="Sort">
+                <option value="featured" data-t="sortFeatured"></option>
+                <option value="newest" data-t="sortNewest"></option>
+                <option value="price-low" data-t="sortPriceLow"></option>
+                <option value="price-high" data-t="sortPriceHigh"></option>
+              </select>
+              <i data-icon="chevronDown" class="select-wrap__arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+
+        <div class="empty-state hidden" id="empty-state">
+          <div class="empty-state__icon"><i data-icon="search"></i></div>
+          <h3 data-t="noResultsTitle"></h3>
+          <p data-t="noResultsDesc"></p>
+          <button class="btn btn--primary" data-action="clear-all" data-t="clearAll"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. PROMO CODE BANNER ================= -->
+    <section class="container">
+      <div class="promo">
+        <div>
+          <span class="promo__eyebrow" data-t="promoEyebrow"></span>
+          <h3 class="promo__title" data-t="promoTitle"></h3>
+          <p class="promo__desc" data-t="promoDesc"></p>
+        </div>
+        <button class="promo__code" data-action="copy-code">
+          <span>VOILE10</span>
+          <i data-icon="copy"></i>
+          <small data-t="copyCode"></small>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 8. FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__main">
+      <div class="footer__brand">
+        <span class="logo__text logo__text--light">Le Voile</span>
+        <p data-t="footer.aboutDesc"></p>
+        <div class="socials">
+          <a href="https://www.instagram.com/levoilestores/" target="_blank" rel="noreferrer" aria-label="Instagram"><i data-icon="instagram"></i></a>
+          <a href="https://www.facebook.com/levoilestores/" target="_blank" rel="noreferrer" aria-label="Facebook"><i data-icon="facebook"></i></a>
+          <a href="tel:19999" aria-label="Hotline"><i data-icon="phone"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer__heading" data-t="footer.shopLinks"></h4>
+        <ul class="footer__links" id="footer-categories"></ul>
+      </div>
+
+      <div>
+        <h4 class="footer__heading" data-t="footer.customerCare"></h4>
+        <ul class="footer__links">
+          <li><a href="#" data-action="open-popup" data-popup="returns" data-t="linkReturns"></a></li>
+          <li><a href="#" data-action="open-popup" data-popup="sizes" data-t="linkSizeGuide"></a></li>
+          <li><a href="#" data-action="open-popup" data-popup="branches" data-t="linkBranches"></a></li>
+          <li><a href="#" data-action="open-popup" data-popup="track" data-t="linkTrack"></a></li>
+          <li><a href="#" data-action="open-popup" data-popup="faq" data-t="linkFaq"></a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer__heading" data-t="footer.newsletterTitle"></h4>
+        <p class="footer__small" data-t="footer.newsletterDesc"></p>
+        <form class="newsletter" id="newsletter-form">
+          <input type="email" required data-t-placeholder="footer.newsletterPlaceholder" aria-label="Email">
+          <button type="submit" aria-label="Subscribe"><i data-icon="arrowRight" class="flip-rtl"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <p data-t="footer.allRights"></p>
+      <div class="payments">
+        <span>VISA</span><span>Mastercard</span><span>Meeza</span><span>valU</span><span data-t="cashOnDelivery"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= OVERLAYS ================= -->
+
+  <!-- Mobile menu -->
+  <div class="overlay hidden" id="mobile-menu">
+    <div class="overlay__backdrop" data-action="close-menu"></div>
+    <aside class="side-panel side-panel--start mobile-menu" aria-label="Menu">
+      <div class="panel-head">
+        <span class="logo__text">Le Voile</span>
+        <button class="icon-btn" data-action="close-menu" aria-label="Close"><i data-icon="x"></i></button>
+      </div>
+      <div class="mobile-menu__body">
+        <div class="mobile-menu__title" data-t="categories"></div>
+        <div id="mobile-categories"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Product quick view -->
+  <div class="overlay overlay--center hidden" id="product-modal">
+    <div class="overlay__backdrop" data-action="close-modal"></div>
+    <div class="modal" id="modal-content" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <!-- Shopping bag drawer -->
+  <div class="overlay hidden" id="cart-drawer">
+    <div class="overlay__backdrop" data-action="close-cart"></div>
+    <aside class="side-panel side-panel--end drawer" id="cart-content" aria-label="Shopping bag"></aside>
+  </div>
+
+  <!-- Wishlist drawer -->
+  <div class="overlay hidden" id="wishlist-drawer">
+    <div class="overlay__backdrop" data-action="close-wishlist"></div>
+    <aside class="side-panel side-panel--end drawer" id="wishlist-content" aria-label="Wishlist"></aside>
+  </div>
+
+  <!-- Customer-care popup: FAQ, returns, size guide, branches, tracking (filled by js/popups.js) -->
+  <div class="overlay overlay--center hidden" id="info-popup">
+    <div class="overlay__backdrop" data-action="close-popup"></div>
+    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+      <div class="popup__head">
+        <div>
+          <h2 class="popup__title" id="popup-title"></h2>
+          <p class="popup__subtitle" id="popup-subtitle"></p>
+        </div>
+        <button class="icon-btn" data-action="close-popup" aria-label="Close"><i data-icon="x"></i></button>
+      </div>
+      <div class="popup__body" id="popup-body"></div>
+      <div class="popup__footer">
+        <span id="popup-help"></span>
+        <a href="tel:19999"><i data-icon="phone"></i> 19999</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="back-to-top" data-action="back-to-top" aria-label="Back to top">
+    <i data-icon="chevronUp"></i>
+  </button>
+
+  <!-- Scripts: data first, then popups, then the app logic -->
+  <script src="js/data.js"></script>
+  <script src="js/popups.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
